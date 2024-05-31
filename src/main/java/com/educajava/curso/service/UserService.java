@@ -1,7 +1,8 @@
 package com.educajava.curso.service;
 
-import com.educajava.curso.entities.Order;
+
 import com.educajava.curso.entities.User;
+
 import com.educajava.curso.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
