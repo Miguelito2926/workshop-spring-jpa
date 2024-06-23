@@ -1,5 +1,8 @@
 package com.educajava.curso.config;
 
+import com.educajava.curso.entities.*;
+import com.educajava.curso.entities.enums.OrderStatus;
+import com.educajava.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
