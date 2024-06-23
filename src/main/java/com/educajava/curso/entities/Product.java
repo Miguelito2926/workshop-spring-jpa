@@ -1,44 +1,36 @@
 package com.educajava.curso.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@EqualsAndHashCode
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+
+
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
     private static final long serialVersionUID = 1l;
 
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
     private String name;
-    @Setter
-    @Getter
     private String description;
-    @Setter
-    @Getter
     private Double price;
-    @Getter
-    @Setter
     private String imgUrl;
 
-    @Getter
     @ManyToMany
-    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "id.product")

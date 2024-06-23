@@ -1,8 +1,5 @@
 package com.educajava.curso.config;
 
-import com.educajava.curso.entities.*;
-import com.educajava.curso.entities.enums.OrderStatus;
-import com.educajava.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +27,7 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Override
     public void run(String... args) throws Exception {
 
         User usuario1 = new User(null,"Ednaldo", "ednaldo@gmail.com", "12345", "219999999");
@@ -70,7 +68,9 @@ public class TestConfig implements CommandLineRunner {
         OrderItem orderItem4 = new OrderItem(order3, produto5, 2, produto5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+        User user = new User(null, "Ednaldo Tavares", "junior@gmail.com", "1234567896", "12345");
+        User user2 = new User(null, "Miguel Tavares", "iguel@gmail.com", "1234567896", "12345");
+        userRepository.saveAll(Arrays.asList(user, user2));
 
     }
-
 }
