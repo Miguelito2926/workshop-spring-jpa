@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-// classe auxiliar com chaves composta
+// classe auxiliar com chaves primárias composta
 @Embeddable
 public class OrderItemPK implements Serializable {
     private static final long serivalVerionUID = 1L;

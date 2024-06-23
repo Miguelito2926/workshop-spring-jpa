@@ -6,16 +6,13 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
-
-
+@AllArgsConstructor
 @NoArgsConstructor
-
-@Setter
 @EqualsAndHashCode
-
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
@@ -52,4 +49,20 @@ public class OrderItem implements Serializable {
         id.setProduct(product);
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }

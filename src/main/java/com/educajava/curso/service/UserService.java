@@ -4,6 +4,7 @@ import com.educajava.curso.entities.Order;
 import com.educajava.curso.entities.User;
 import com.educajava.curso.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class UserService {
 
 // metodo que retorna uma lidta de todos usuários
     public List<User> findAll() {
-        return  userRepository.findAll();
+        return userRepository.findAll();
     }
 
     public User findById(Long id) {

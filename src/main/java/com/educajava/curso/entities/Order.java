@@ -2,6 +2,7 @@ package com.educajava.curso.entities;
 
 import com.educajava.curso.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,6 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -35,7 +35,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
-    @Getter
+    @JsonIgnore
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet(){};
 
@@ -44,6 +44,10 @@ public class Order implements Serializable {
         this.moment = moment;
         setOrderStatus(orderStatus);
         this.client = client;
+    }
+
+    public  Set<OrderItem> getItems() {
+        return items;
     }
 
     public OrderStatus getOrderStatus() {
