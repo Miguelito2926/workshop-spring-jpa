@@ -52,28 +52,30 @@ public class TestConfig implements CommandLineRunner {
 
         categoryRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
 
-        produto3.getCategories().add(categoria3);
-        produto4.getCategories().add(categoria3);
         produto1.getCategories().add(categoria2);
         produto2.getCategories().add(categoria1);
         produto2.getCategories().add(categoria3);
+        produto3.getCategories().add(categoria3);
+        produto4.getCategories().add(categoria3);
         produto5.getCategories().add(categoria2);
+        productRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5));
 
         Order order1 = new Order(null, Instant.parse("2024-05-18T23:20:15Z"), OrderStatus.WAITING_PAYMENT, usuario1);
-        Order order2 = new Order(null, Instant.parse("2024-05-18T23:20:10Z"), OrderStatus.CANCELED, usuario2);
+        Order order2 = new Order(null, Instant.parse("2024-05-18T23:20:10Z"), OrderStatus.WAITING_PAYMENT, usuario2);
         Order order3 = new Order(null, Instant.parse("2024-05-18T23:20:05Z"), OrderStatus.SHIPPED, usuario3);
 
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
 
         OrderItem orderItem1 = new OrderItem(order1, produto1, 2, produto1.getPrice());
-        OrderItem orderItem2 = new OrderItem(order1, produto2, 1, produto4.getPrice());
-        OrderItem orderItem3 = new OrderItem(order2, produto3, 2, produto1.getPrice());
+        OrderItem orderItem2 = new OrderItem(order1, produto3, 1, produto3.getPrice());
+        OrderItem orderItem3 = new OrderItem(order2, produto3, 2, produto3.getPrice());
         OrderItem orderItem4 = new OrderItem(order3, produto5, 2, produto5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
-        User user = new User(null, "Ednaldo Tavares", "junior@gmail.com", "1234567896", "12345");
-        User user2 = new User(null, "Miguel Tavares", "iguel@gmail.com", "1234567896", "12345");
-        userRepository.saveAll(Arrays.asList(user, user2));
 
+        User user = new User(null, "Ednaldo Tavares", "junior@gmail.com", "1234567896", "12345");
+        User user2 = new User(null, "Miguel Tavares", "miguel@gmail.com", "1234567896", "12345");
+        User user3 = new User(null, "Dione", "dione@gmail.com", "22556", "9995285445");
+        userRepository.saveAll(Arrays.asList(user, user2, user3));
     }
 }

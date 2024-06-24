@@ -11,7 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Getter
 @Setter
 @Entity
 @Table(name = "tb_order_item")
@@ -26,8 +25,8 @@ public class OrderItem implements Serializable {
 
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
         super();
-        id.setOrder(order);
         id.setProduct(product);
+        id.setOrder(order);
         this.quantity = quantity;
         this.price = price;
     }
@@ -37,11 +36,8 @@ public class OrderItem implements Serializable {
         return id.getOrder();
     }
 
-    public void setOrder(Order order) {
-        id.setOrder(order);
-    }
+    public void setOrder(Order order) { id.setOrder(order); }
 
-    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }

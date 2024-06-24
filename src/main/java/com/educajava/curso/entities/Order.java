@@ -35,19 +35,14 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> items = new HashSet(){};
+    private Set<OrderItem> items = new HashSet();
 
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
         this.client = client;
-    }
-
-    public  Set<OrderItem> getItems() {
-        return items;
     }
 
     public OrderStatus getOrderStatus() {

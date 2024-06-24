@@ -1,20 +1,21 @@
 package com.educajava.curso.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-
-
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
@@ -32,14 +33,14 @@ public class Product implements Serializable {
     @JoinTable(name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categories = new HashSet<>(); // Set é uma interface que  representa um conjunto de objetos
 
     @OneToMany(mappedBy = "id.product")
-    private Set<OrderItem> items = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>(); // Set representa um conjunto de objetos
 
     @JsonIgnore
     public Set<Order> getOrders() {
-        Set<Order> set = new HashSet<>();
+        Set<Order> set = new HashSet<>(); // Set representa um conjunto de objetos
         for (OrderItem orderItem : items) {
             set.add(orderItem.getOrder());
         }
@@ -52,6 +53,51 @@ public class Product implements Serializable {
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Product setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Product setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Product setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Product setPrice(Double price) {
+        this.price = price;
+        return this;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public Product setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+        return this;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     public String getName() {
