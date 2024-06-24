@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Profile;
 import java.time.Instant;
 import java.util.Arrays;
 
+import static java.time.Instant.parse;
+
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
@@ -60,9 +62,9 @@ public class TestConfig implements CommandLineRunner {
         produto5.getCategories().add(categoria2);
         productRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5));
 
-        Order order1 = new Order(null, Instant.parse("2024-05-18T23:20:15Z"), OrderStatus.WAITING_PAYMENT, usuario1);
-        Order order2 = new Order(null, Instant.parse("2024-05-18T23:20:10Z"), OrderStatus.WAITING_PAYMENT, usuario2);
-        Order order3 = new Order(null, Instant.parse("2024-05-18T23:20:05Z"), OrderStatus.SHIPPED, usuario3);
+        Order order1 = new Order(null, parse("2024-05-18T23:20:15Z"), OrderStatus.WAITING_PAYMENT, usuario1);
+        Order order2 = new Order(null, parse("2024-05-18T23:20:10Z"), OrderStatus.PAID, usuario2);
+        Order order3 = new Order(null, parse("2024-05-18T23:20:05Z"), OrderStatus.SHIPPED, usuario3);
 
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
 
@@ -77,5 +79,14 @@ public class TestConfig implements CommandLineRunner {
         User user2 = new User(null, "Miguel Tavares", "miguel@gmail.com", "1234567896", "12345");
         User user3 = new User(null, "Dione", "dione@gmail.com", "22556", "9995285445");
         userRepository.saveAll(Arrays.asList(user, user2, user3));
+
+        Payment payment1 = Payment.builder()
+                .id(null)
+                .moment(parse("2024-05-18T00:20:10Z"))
+                .order(order1)
+                .build();
+
+        order1.setPayment(payment1);
+        orderRepository.save(order1);
     }
 }
