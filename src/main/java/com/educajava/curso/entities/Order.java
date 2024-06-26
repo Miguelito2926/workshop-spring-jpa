@@ -52,12 +52,16 @@ public class Order implements Serializable {
         return OrderStatus.valueOf(orderStatus);
     }
 
-    public Payment getPayment() {
-        return payment;
-    }
+    public Payment getPayment() { return payment; }
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
+    public void setPayment(Payment payment) { this.payment = payment;}
+
+    public Double getTotal() {
+        Double soma = 0.0;
+        for (OrderItem orderItem :items) {
+            soma += orderItem.getSubTotal();
+        }
+        return soma;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
