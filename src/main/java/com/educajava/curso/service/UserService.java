@@ -2,11 +2,14 @@ package com.educajava.curso.service;
 
 
 import com.educajava.curso.entities.User;
-
 import com.educajava.curso.repositories.UserRepository;
+import com.educajava.curso.service.exceptions.DataBaseException;
 import com.educajava.curso.service.exceptions.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +18,12 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private UserRepository userRepository; // injeta a dependencia do repositorio no serviço
 
-// metodo que retorna uma lidta de todos usuários
+    // metodo que retorna uma lidta de todos usuários
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -32,8 +37,18 @@ public class UserService {
         return  userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void delete(Long id) {
+        if (!userRepository.existsById(id)) {
+
+            throw new ResourceNotFoundException("User with ID " + id + " not found");
+        }
+        try {
+            userRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+
+            logger.debug("Failed to delete user with ID {}. Details: {}", id, e.getMessage());
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public User updateUser(Long id, User user) {
@@ -48,3 +63,5 @@ public class UserService {
         entity.setPhone(user.getPhone());
     }
 }
+
+
