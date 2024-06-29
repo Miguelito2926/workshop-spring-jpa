@@ -5,6 +5,7 @@ import com.educajava.curso.entities.User;
 import com.educajava.curso.repositories.UserRepository;
 import com.educajava.curso.service.exceptions.DataBaseException;
 import com.educajava.curso.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,14 @@ public class UserService {
     }
 
     public User updateUser(Long id, User user) {
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity, user);
-        return userRepository.save(entity);
+
+        try {
+          User entity = userRepository.getReferenceById(id);
+          updateData(entity, user);
+          return userRepository.save(entity);
+      }catch (EntityNotFoundException e) {
+          throw  new ResourceNotFoundException(e.getMessage());
+      }
     }
 
     private void updateData(User entity, User user) {
