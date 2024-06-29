@@ -3,11 +3,9 @@ package com.educajava.curso.resource;
 import com.educajava.curso.entities.Product;
 import com.educajava.curso.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,11 @@ public class ProductResource {
     public ResponseEntity<Product> findById(@PathVariable Long id) {
         Product product = productService.findById(id);
         return ResponseEntity.ok().body(product);
+    }
+   HttpStatus status = HttpStatus.CREATED;
+    @PostMapping
+    public ResponseEntity<Product> insertProduct(@RequestBody Product product){
+        product = productService.insertProduct(product);
+        return ResponseEntity.status(status).body(product);
     }
 }

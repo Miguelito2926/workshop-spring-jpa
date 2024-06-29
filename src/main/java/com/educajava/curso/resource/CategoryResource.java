@@ -4,11 +4,9 @@ import com.educajava.curso.entities.Category;
 import com.educajava.curso.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -27,6 +25,12 @@ public class CategoryResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Category> findById(@PathVariable Long id) {
         Category category = categoryService.findById(id);
+        return ResponseEntity.ok().body(category);
+    }
+
+    @PostMapping
+    public ResponseEntity<Category> insertCategory(@RequestBody Category category) {
+        category = categoryService.insertCategory(category);
         return ResponseEntity.ok().body(category);
     }
 }
